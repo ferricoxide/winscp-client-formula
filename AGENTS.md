@@ -8,6 +8,7 @@ Before starting any task in this repository:
 These rules always apply, even without the shared instructions:
 
 - Don't push, open pull requests, publish releases, or apply infrastructure changes unless the user asks. List those steps for a person in your final report.
+- Do not alter the user's git config and, especially do not alter the user's `user.email` or `user.name` values
 - Don't edit files under `.agents/plus3it/`; they are generated and overwritten by the sync.
 
 @.agents/plus3it/AGENTS.md
@@ -24,25 +25,42 @@ These rules always apply, even without the shared instructions:
   set AGENTS_PROFILE := <profile> in the Makefile before the include line.
 -->
 
+
 ### Purpose
 
 <!-- Describe what this repository does. For Terraform modules, describe the AWS resources it manages.
 For Salt formulas, describe the security controls or configurations it applies. For deployment repos,
 describe which accounts and environments it manages. Keep this to 1-2 paragraphs. -->
+This repository implements a Saltstack formula for managing the installation, configuration &mdash; or complete reversal of same &mdash; of the WinSCP graphical file-transfer utility.
 
 ### Layout
 
 <!-- Describe the directory structure and key files. For Terraform modules, mention modules/, tests/,
 and any special directories. For Salt formulas, mention pillar structure. For deployment repos, describe
 the stacks/roots/modules organization. -->
+Project layout:
+
+<PROJECT_ROOT>/
+├── AGENTS.md: This file
+├── CHANGELOG.md: Summarization of changes across update-increments
+├── Dockerfile: Generic-used Dockerfile definition that enables use of the standard, P3-managed `tardigrade-ci` testing-enablement container
+├── LICENSE: Description of how this project may be used:
+├── Makefile: Bootstraps the Tardigrade CI in standard use on P3-managed projects
+├── README.md: Overview of what this project does.
+├── tests: Directory-tree containing content for exercising the formula-contents hosted under the `winscp-client` directory-tree
+│   ├── pillar: Testing-supporting SaltStack "Pillar" content
+│   └── requirements*.txt: files used by testing-harness to know which supplemental Python packages to import
+└── winscp-client: Directory-tree containing automation templated from the public "SaltStack formulas template" project found at https://github.com/saltstack-formulas/template-formula. This directory-tree contains the primary functionality of this project
+    ├── _mapdata: Contains dumped/cached mapdata YAML exports used to test and validate parameter resolution across platforms
+    ├── config: Saltstack states handling configuration of WinSCP file-transfer utility
+    ├── files: Contains static configuration files and Jinja templates managed by Salt states
+    ├── package: Saltstack states handling installation/removal of WinSCP file-transfer utility
+    └── parameters: Directory-tree containing files describing general and platform-specific parameter-value defaults that can also be overridden via SaltStack's "Pillar" capability
 
 ### CI/CD
 
-<!-- Describe how changes are tested and deployed. Common patterns:
-- "PRs trigger lint and test workflows; releases are created when .bumpversion.cfg changes on the default branch"
-- "Uses GitHub Actions with reusable workflows from plus3it/actions-workflows"
-- "Tests run against mockstack (moto by default) for AWS resources"
-For deployment repos with custom CI/CD (GitLab, Spacelift), describe the actual workflow. -->
+- PRs trigger lint and test workflows
+- Uses GitHub Actions with reusable workflows from plus3it/actions-workflows
 
 ### Testing
 

@@ -1,57 +1,43 @@
-# repo-template
-Generic repo template for Plus3 IT repositories
+# winscp-client-formula
 
-To use this template:
+A Saltstack formula designed to install and configure the [WinSCP](https://winscp.net/) file-transfer utility (and to uninstall the utility, later). WinSCP is a free, open-source file transfer and remote file management utility for Windows. It provides both an interactive graphical interface and a scriptable command-line environment for transferring files securely between a local machine and remote servers over protocols including SFTP, SCP, FTP, FTPS, WebDAV, and Amazon S3.
 
-1. Select the green "Use this template" button, or [click here](https://github.com/plus3it/repo-template/generate).
-2. Select the repo Owner, give the repo a name, enter a description, select Public or Private, and click "Create repository from template".
-3. Clone the repository and create a new branch.
-4. Configure the following settings on your new repo.
-    * `GENERAL`
-        * `Features`
-            * Turn off Wikis, Sponsorships, Discussions, and Projects
-        * `Pull Requests`
-            * Turn off Squash Merging
-            * Turn off Rebase Merging
-            * Turn on Allow Auto-Merge
-            * Turn on Automatically delete head branches
-        * `Pushes`
-            * Limit how many branches can be updated in a single push: 2
-    * `COLLABORATORS and TEAMS`
-        * `Manage Access`
-            * Add relevant team roles, for example
-            * `tardigrade-admins` (Admin)
-            * `terraform` (Write)
-            * `releasebot` (Write)
-    * `Branches`
-        * `Create Branch Protection rule` for `main`
-            * Turn on Require pull request before merging
-            * Turn on Require approvals
-            * Turn on Dismiss stale pull requests...
-        * `Required Status Checks`
-            * As relevant to projects, for example
-                * WIP
-                * lint/actionlint
-                * lint/tardigradelint
-                * test / mockstacktest                
-            * Turn on Do not allow bypassing the above settings
-5. Edit the following files to customize them for the new repository:
-    * `LICENSE`
-        * Near the end of the file, edit the date and change the repository name
-    * `CHANGELOG.template.md`
-        * Rename to `CHANGELOG.md`, replacing the repo-template changelog
-        * Edit templated items for the new repo
-    * `.bumpversion.cfg`
-        * Edit the version number for the new repo, ask team if not sure what to
-          start with
-    * `README.md`
-        * Replace contents for the new repo
-    * `AGENTS.md`
-        * Fill in the Repository-specific section (Purpose, Layout, CI/CD, Testing)
-    * `Makefile`
-        * If the repository fits one of the profiles (terraform-module, salt-formula, tardigrade-deployment),
-          set AGENTS_PROFILE := <profile> before the include line
-    * `.github/`
-        * Inspect dependabot and workflow files in case changes are needed for
-          the new repo
-6. Commit the changes and open a pull request
+It is primarily expected that this formula will be run via [P3](https://www.plus3it.com/)'s "[watchmaker](https://watchmaker.readthedocs.io/en/stable/)" framework.
+
+This formula is able to install the WinSCP file-transfer utility on Windows[^1] desktop operating environments:
+
+[^1]: As of this README's writing, this functionality has only been tested on Windows Server 2022
+
+
+## Available states
+
+- [winscp-client](#winscp-client)
+- [winscp-client.clean](#winscp-client.clean)
+- [winscp-client.package](#winscp-client.package)
+- [winscp-client.package.clean](#winscp-client.package.clean)
+- [winscp-client.config](#winscp-client.config)
+- [winscp-client.config.clean](#winscp-client.config.clean)
+
+### winscp-client
+
+Executes the `package` and `config` states to install and configure the WinSCP file-transfer utility. This includes the utility's binaries and user-configuration template files.
+
+### winscp-client.clean
+
+Executes the `package` and `config` states' `clean` actions to fully uninstall the WinSCP file-transfer utility. This includes uninstalling the binaries and user-configuration template files.
+
+### winscp-client.package
+
+Executes the `package` state to install the WinSCP file-transfer utility. This includes only the utility's binaries.
+
+### winscp-client.package.clean
+
+Executes the `package` state's `clean` function to uninstall the WinSCP file-transfer utility. This includes only the utility's binaries.
+
+### winscp-client.config
+
+Executes the `config` state to install the WinSCP file-transfer utility. This includes only the utility's user-configuration template files.
+
+### winscp-client.config.clean
+
+Executes the `config` state's `clean` function to uninstall the WinSCP file-transfer utility. This includes only the utility's user-configuration template files.
