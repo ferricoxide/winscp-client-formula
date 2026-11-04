@@ -1,0 +1,18 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Set default values.
+---
+values:
+  pkg:
+    name: winscp-client
+  rootgroup: root
+  config: '/etc/winscp-client'
+  service:
+    name: winscp-client
+  subcomponent:
+    config: '/etc/winscp-client-subcomponent-formula.conf'
+  # Just here for testing
+  added_in_defaults: defaults_value
+  winner: defaults
+...
