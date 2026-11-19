@@ -1,0 +1,19 @@
+; -*- coding: utf-8 -*-
+; vim: ft=dosini
+; ###############################################################################
+; File managed by Salt at <{{ source }}>.
+; Your changes will be overwritten.
+; ###############################################################################
+
+{%- set config = winscp_client.get('config') or {} -%}
+
+[Configuration\Interface]
+RandomSeedFile=
+ShowUl=0
+UpdatesPeriod=0
+
+[Configuration\Security]
+MasterPassword=0
+
+[Sessions\Default%20Settings]
+FSProtocol=2
