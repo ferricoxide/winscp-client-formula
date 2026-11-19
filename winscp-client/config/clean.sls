@@ -3,14 +3,10 @@
 
 {#- Get the `tplroot` from `tpldir` #}
 {%- set tplroot = tpldir.split('/')[0] %}
-{%- set sls_service_clean = tplroot ~ '.service.clean' %}
-{%- from tplroot ~ "/map.jinja" import mapdata as winscp_client with context %}
-
 include:
-  - {{ sls_service_clean }}
+{%- if grains.os_family == "Windows" %}
+  - {{ tplroot }}.config.win_clean
+{%- endif %}
 
-winscp-client-config-clean-file-absent:
-  file.absent:
-    - name: {{ winscp_client.config }}
-    - require:
-      - sls: {{ sls_service_clean }}
+Avoid being a null-router (config/clean) - WinSCP Client:
+  test.nop: []

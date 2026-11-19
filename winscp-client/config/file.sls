@@ -9,20 +9,9 @@
 
 include:
   - {{ sls_package_install }}
+{%- if grains.os_family == "Windows" %}
+  - {{ tplroot }}.config.win_file
+{%- endif %}
 
-winscp-client-config-file-file-managed:
-  file.managed:
-    - name: {{ winscp_client.config }}
-    - source: {{ files_switch(['example.tmpl'],
-                              lookup='winscp-client-config-file-file-managed'
-                 )
-              }}
-    - mode: 644
-    - user: root
-    - group: {{ winscp_client.rootgroup }}
-    - makedirs: True
-    - template: jinja
-    - require:
-      - sls: {{ sls_package_install }}
-    - context:
-        winscp_client: {{ winscp_client | json }}
+Avoid being a null-router (config/file) - WinSCP Client:
+  test.nop: []
