@@ -4,15 +4,17 @@
 # Set default values.
 ---
 values:
+  config:
+    desktop_shortcut: false
+    ini_settings: {}
+    ini_template: false
+    install_root: ''
+    rootgroup: ''
+    start_menu_shortcut: false
   pkg:
+    archive_type: ''
+    download_sig: ''
+    download_uri: ''
     name: winscp-client
-  rootgroup: root
-  config: '/etc/winscp-client'
-  service:
-    name: winscp-client
-  subcomponent:
-    config: '/etc/winscp-client-subcomponent-formula.conf'
-  # Just here for testing
-  added_in_defaults: defaults_value
-  winner: defaults
+    version: ''
 ...

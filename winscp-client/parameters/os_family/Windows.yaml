@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Set default values for Windows-based platforms.
+---
+values:
+  config:
+    desktop_shortcut: true
+    ini_settings:
+      'Configuration\Interface':
+        UpdatesPeriod: 0
+    ini_template: true
+    install_root: 'C:\Program Files (x86)\WinSCP'
+    rootgroup: Administrators
+    start_menu_shortcut: true
+  pkg:
+    archive_type: 'exe'
+    download_sig: ''
+    download_uri: 'https://sourceforge.net/projects/winscp/files/WinSCP/'
+    name: winscp-client
+    version: '6.7.1'
+...
