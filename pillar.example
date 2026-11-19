@@ -1,0 +1,66 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+# ==============================================================================
+# WinSCP Client Formula Pillar Configuration Example
+# ==============================================================================
+---
+winscp-client:
+  # ============================================================================
+  # SYSTEM-WIDE CONFIGURATION DIRECTIVES (config)
+  # ============================================================================
+  config:
+    # Controls creation of a public desktop launcher shortcut on Windows.
+    # Windows default: true
+    desktop_shortcut: true
+
+    # Controls creation of a Start Menu launcher shortcut on Windows.
+    # Windows default: true
+    start_menu_shortcut: true
+
+    # The installation directory root where WinSCP is provisioned.
+    # Windows default: 'C:\Program Files (x86)\WinSCP'
+    install_root: 'C:\Program Files (x86)\WinSCP'
+
+    # Group ownership for managed configuration files.
+    # Windows default: 'Administrators'
+    rootgroup: 'Administrators'
+
+    # Controls deployment of the default WinSCP.ini template file.
+    # Windows default: true
+    ini_template: true
+
+    # Configuration directives merged into WinSCP.ini using ini.options_present.
+    # Sections map to nested key-value pairs matching WinSCP INI configuration.
+    ini_settings:
+      'Configuration\Interface':
+        UpdatesPeriod: 0
+      'Configuration\Security':
+        MasterPassword: 0
+      'Sessions\Default%20Settings':
+        FSProtocol: 2
+
+  # ============================================================================
+  # PACKAGING & DOWNLOAD DIRECTIVES (pkg)
+  # ============================================================================
+  pkg:
+    # Target archive type used to evaluate installation splits.
+    # Supported values: 'exe' (Inno Setup installer) or 'zip' (portable archive).
+    # Windows default: 'exe'
+    archive_type: 'exe'
+
+    # Explicit URL to download the WinSCP installer or portable archive.
+    # If omitted, defaults to the official WinSCP release URL based on version.
+    download_uri: 'https://winscp.net/download/WinSCP-6.3.5-Setup.exe'
+
+    # Optional cryptographic hash string (e.g., sha256=...) to verify download.
+    # If empty, integrity validation is skipped.
+    download_sig: ''
+
+    # Package identifier tracking key
+    # Default: 'winscp-client'
+    name: 'winscp-client'
+
+    # Target application version string.
+    # Windows default: '6.3.5'
+    version: '6.3.5'
+...
