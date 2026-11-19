@@ -8,9 +8,9 @@
 
 include:
   - {{ sls_config_clean }}
+{%- if grains.os_family == "Windows" %}
+  - {{ tplroot }}.package.win_clean
+{%- endif %}
 
-winscp-client-package-clean-pkg-removed:
-  pkg.removed:
-    - name: {{ winscp_client.pkg.name }}
-    - require:
-      - sls: {{ sls_config_clean }}
+Avoid being a null-router (package/clean) - WinSCP Client:
+  test.nop: []
